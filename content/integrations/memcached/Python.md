@@ -182,9 +182,9 @@ To provide observability, we'll enable tracing by importing OpenCensus Python's 
 from opencensus.trace.tracer import Tracer
 
 # For demo purposes, we'll always sample
-from opencensus.trace.samplers import always_on
+from opencensus.trace import samplers
 
-tracer = Tracer(sampler=always_on.AlwaysSampler())
+tracer = Tracer(sampler=samplers.AlwaysSampler())
 {{</highlight>}}
 
 ### Enabling tracing
@@ -211,7 +211,7 @@ def main():
     texp = stackdriver_trace.StackdriverExporter(
             project_id=gcp_project_id,
             transport=AsyncTransport)
-    tracer = Tracer(sampler=always_on.AlwaysOnSampler(), exporter=texp)
+    tracer = Tracer(sampler=samplers.AlwaysOnSampler(), exporter=texp)
 {{</highlight>}}
 
 ### Enabling metrics
@@ -260,7 +260,7 @@ from opencensus.stats import stats as stats_module
 from opencensus.stats.exporters import stackdriver_exporter as stackdriver_stats
 from opencensus.trace import execution_context
 from opencensus.trace.exporters import stackdriver_exporter as stackdriver_trace
-from opencensus.trace.samplers import always_on
+from opencensus.trace import samplers
 from opencensus.trace.status import Status
 from opencensus.trace.tracer import Tracer
 
@@ -273,7 +273,7 @@ def main():
     texp = stackdriver_trace.StackdriverExporter(
             project_id=gcp_project_id,
             transport=AsyncTransport)
-    tracer = Tracer(sampler=always_on.AlwaysOnSampler(), exporter=texp)
+    tracer = Tracer(sampler=samplers.AlwaysOnSampler(), exporter=texp)
 
     # Enable metrics
     mexp = stackdriver_stats.new_stats_exporter(

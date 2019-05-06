@@ -20,10 +20,10 @@ Samplers.neverSample();
 {{</highlight>}}
 
 {{<highlight python>}}
-from opencensus.trace.samplers import always_off
+from opencensus.trace import samplers
 from opencensus.trace import tracer as tracer_module
 
-sampler = always_off.AlwaysOffSampler()
+sampler = samplers.AlwaysOffSampler()
 tracer = tracer_module.Tracer(sampler=sampler)
 {{</highlight>}}
 
@@ -44,7 +44,7 @@ const samplerShouldNotSample = sampler.shouldSample(root.traceId);
 Resource|URL
 ---|---
 Go NeverSample|[trace.NeverSample](https://godoc.org/go.opencensus.io/trace#NeverSample)
-Python samplers|[trace.samplers](https://github.com/census-instrumentation/opencensus-python/blob/master/opencensus/trace/samplers/always_off.py)
+Python samplers|[trace.samplers](https://github.com/census-instrumentation/opencensus-python/blob/master/opencensus/trace/samplers/__init__.py)
 Java NeverSample|[trace.NeverSample](https://static.javadoc.io/io.opencensus/opencensus-api/0.16.1/io/opencensus/trace/samplers/Samplers.html#neverSample--)
 C++ NeverSample|[trace.NeverSample](https://github.com/census-instrumentation/opencensus-cpp/blob/c5e59c48a3c40a7da737391797423b88e93fd4bb/opencensus/trace/sampler.h#L83)
 Node.js TracerConfig|[trace.TracerConfig](https://github.com/census-instrumentation/opencensus-node/blob/master/packages/opencensus-core/src/trace/config/types.ts#L35)

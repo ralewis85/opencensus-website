@@ -174,7 +174,7 @@ First let's import the required packages:
 
 {{<tabs Snippet All>}}
 {{<highlight python>}}
-from opencensus.trace.samplers import always_on
+from opencensus.trace import samplers
 from opencensus.trace.tracer import Tracer
 from opencensus.trace.ext.grpc import server_interceptor
 {{</highlight>}}
@@ -184,7 +184,7 @@ import grpc
 import time
 from concurrent import futures
 
-from opencensus.trace.samplers import always_on
+from opencensus.trace import samplers
 from opencensus.trace.tracer import Tracer
 from opencensus.trace.ext.grpc import server_interceptor
 
@@ -220,7 +220,7 @@ Now let's modify our `Capitalize` function to create our span:
 {{<tabs Snippet All>}}
 {{<highlight python>}}
 def Capitalize(self, request, context):
-  tracer = Tracer(sampler=always_on.AlwaysOnSampler())
+  tracer = Tracer(sampler=samplers.AlwaysOnSampler())
   with tracer.span(name='Capitalize') as span:
     data = request.data
     span.add_annotation('Data in', len=len(data))
@@ -232,7 +232,7 @@ import grpc
 import time
 from concurrent import futures
 
-from opencensus.trace.samplers import always_on
+from opencensus.trace import samplers
 from opencensus.trace.tracer import Tracer
 from opencensus.trace.ext.grpc import server_interceptor
 
@@ -244,7 +244,7 @@ class CapitalizeServer(proto.FetchServicer):
         super(CapitalizeServer, self).__init__()
 
      def Capitalize(self, request, context):
-        tracer = Tracer(sampler=always_on.AlwaysOnSampler())
+        tracer = Tracer(sampler=samplers.AlwaysOnSampler())
         with tracer.span(name='Capitalize') as span:
             data = request.data
             span.add_annotation('Data in', len=len(data))
@@ -274,7 +274,7 @@ Finally, let's modify our `main` function to setup the interceptor.
 def main():
     # Setup the gRPC integration/interceptor
     tracer_interceptor = server_interceptor.OpenCensusServerInterceptor(
-            always_on.AlwaysOnSampler())
+            samplers.AlwaysOnSampler())
 
     server = grpc.server(
             futures.ThreadPoolExecutor(max_workers=10),
@@ -290,7 +290,7 @@ import grpc
 import time
 from concurrent import futures
 
-from opencensus.trace.samplers import always_on
+from opencensus.trace import samplers
 from opencensus.trace.tracer import Tracer
 from opencensus.trace.ext.grpc import server_interceptor
 
@@ -302,7 +302,7 @@ class CapitalizeServer(proto.FetchServicer):
         super(CapitalizeServer, self).__init__()
 
      def Capitalize(self, request, context):
-        tracer = Tracer(sampler=always_on.AlwaysOnSampler())
+        tracer = Tracer(sampler=samplers.AlwaysOnSampler())
         with tracer.span(name='Capitalize') as span:
             data = request.data
             span.add_annotation('Data in', len=len(data))
@@ -311,7 +311,7 @@ class CapitalizeServer(proto.FetchServicer):
 def main():
     # Setup the gRPC integration/interceptor
     tracer_interceptor = server_interceptor.OpenCensusServerInterceptor(
-            always_on.AlwaysOnSampler())
+            samplers.AlwaysOnSampler())
 
     server = grpc.server(
             futures.ThreadPoolExecutor(max_workers=10),
@@ -351,7 +351,7 @@ from concurrent import futures
 from opencensus.common.transports.async_ import AsyncTransport
 from opencensus.trace.exporters import stackdriver_exporter
 from opencensus.trace.ext.grpc import server_interceptor
-from opencensus.trace.samplers import always_on
+from opencensus.trace import samplers
 from opencensus.trace.tracer import Tracer
 
 import defs_pb2_grpc as proto
@@ -362,7 +362,7 @@ class CapitalizeServer(proto.FetchServicer):
         super(CapitalizeServer, self).__init__()
 
      def Capitalize(self, request, context):
-        tracer = Tracer(sampler=always_on.AlwaysOnSampler())
+        tracer = Tracer(sampler=samplers.AlwaysOnSampler())
         with tracer.span(name='Capitalize') as span:
             data = request.data
             span.add_annotation('Data in', len=len(data))
@@ -371,7 +371,7 @@ class CapitalizeServer(proto.FetchServicer):
 def main():
     # Setup the gRPC integration/interceptor
     tracer_interceptor = server_interceptor.OpenCensusServerInterceptor(
-            always_on.AlwaysOnSampler())
+            samplers.AlwaysOnSampler())
 
     server = grpc.server(
             futures.ThreadPoolExecutor(max_workers=10),
@@ -409,7 +409,7 @@ import time
 from concurrent import futures
 
 from opencensus.common.transports.async_ import AsyncTransport
-from opencensus.trace.samplers import always_on
+from opencensus.trace import samplers
 from opencensus.trace.tracer import Tracer
 from opencensus.trace.ext.grpc import server_interceptor
 from opencensus.trace.exporters import stackdriver_exporter
@@ -427,7 +427,7 @@ class CapitalizeServer(proto.FetchServicer):
         super(CapitalizeServer, self).__init__()
 
      def Capitalize(self, request, context):
-        tracer = Tracer(sampler=always_on.AlwaysOnSampler())
+        tracer = Tracer(sampler=samplers.AlwaysOnSampler())
         with tracer.span(name='Capitalize') as span:
             data = request.data
             span.add_annotation('Data in', len=len(data))
@@ -436,7 +436,7 @@ class CapitalizeServer(proto.FetchServicer):
 def main():
     # Setup the gRPC integration/interceptor
     tracer_interceptor = server_interceptor.OpenCensusServerInterceptor(
-            always_on.AlwaysOnSampler())
+            samplers.AlwaysOnSampler())
 
     server = grpc.server(
             futures.ThreadPoolExecutor(max_workers=10),
@@ -462,11 +462,11 @@ Implement the exporter:
 {{<tabs Snippet All>}}
 {{<highlight python>}}
 def Capitalize(self, request, context):
-  tracer = Tracer(sampler=always_on.AlwaysOnSampler(), exporter=exporter)
+  tracer = Tracer(sampler=samplers.AlwaysOnSampler(), exporter=exporter)
 
 def main():
   tracer_interceptor = server_interceptor.OpenCensusServerInterceptor(
-    always_on.AlwaysOnSampler())
+    samplers.AlwaysOnSampler())
 {{</highlight>}}
 
 {{<highlight python>}}
@@ -475,7 +475,7 @@ import os
 import time
 from concurrent import futures
 
-from opencensus.trace.samplers import always_on
+from opencensus.trace import samplers
 from opencensus.trace.tracer import Tracer
 from opencensus.trace.ext.grpc import server_interceptor
 from opencensus.common.transports.async_ import AsyncTransport
@@ -494,7 +494,7 @@ class CapitalizeServer(proto.FetchServicer):
         super(CapitalizeServer, self).__init__()
 
      def Capitalize(self, request, context):
-        tracer = Tracer(sampler=always_on.AlwaysOnSampler(), exporter=exporter)
+        tracer = Tracer(sampler=samplers.AlwaysOnSampler(), exporter=exporter)
         with tracer.span(name='Capitalize') as span:
             data = request.data
             span.add_annotation('Data in', len=len(data))
@@ -503,7 +503,7 @@ class CapitalizeServer(proto.FetchServicer):
 def main():
     # Setup the gRPC integration/interceptor
     tracer_interceptor = server_interceptor.OpenCensusServerInterceptor(
-            always_on.AlwaysOnSampler(), exporter)
+            samplers.AlwaysOnSampler(), exporter)
 
     server = grpc.server(
             futures.ThreadPoolExecutor(max_workers=10),

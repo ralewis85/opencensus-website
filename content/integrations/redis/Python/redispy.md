@@ -130,7 +130,7 @@ import ocredis
 
 from opencensus.trace.tracer import Tracer
 from opencensus.trace.exporters.zipkin_exporter import ZipkinExporter
-from opencensus.trace.samplers import always_on
+from opencensus.trace import samplers
 from opencensus.common.transports import async_
 from opencensus.stats import stats
 from opencensus.stats.exporters import prometheus_exporter as prometheus
@@ -150,7 +150,7 @@ def create_opencensus_exporters_and_tracer():
 
     tracer_init_args = dict(exporter=zexp,
             # Always sampling for demo purposes.
-            sampler=always_on.AlwaysOnSampler())
+            sampler=samplers.AlwaysOnSampler())
 
     return tracer_init_args
 
